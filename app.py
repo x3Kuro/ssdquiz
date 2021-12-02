@@ -3,6 +3,11 @@ import re
 
 app = Flask(__name__)
 
+def method(string):
+    p ='[^!@#$%\^&\*\(\)\<\>\:]'
+    match = re.match(p, string)
+    return match
+
 @app.route('/')
 def home():
 	return render_template('index.html')
@@ -10,8 +15,8 @@ def home():
 @app.route('/search', methods=['POST'])
 def search():
 	data = request.form.get('search')
-	p = '[^!@#$%^&\*\(\)\'\"\:]*'
-	if re.match(p, data):
+	flag = method(data)
+	if flag:
 		return render_template('result.html', result=data)
 		
 	else:
