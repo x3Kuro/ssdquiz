@@ -4,7 +4,7 @@ import re
 app = Flask(__name__)
 
 def method(string):
-    p ='[^!@#$%\^&\*\(\)\<\>\:]'
+    p ='[^!@#$%\^&\*\(\)\<\>\:]*'
     match = re.match(p, string)
     return match
 
