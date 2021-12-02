@@ -17,7 +17,7 @@ def search():
 	data = request.form.get('search')
 	flag = method(data)
 	if flag:
-		return render_template('result.html', result=data)
+		return render_template('search.html', result=data)
 		
 	else:
 		return redirect(url_for('home'))
