@@ -16,7 +16,7 @@ pipeline {
 					    sh 'apt install python3-pip'
 					    sh 'python3 -m pip install pipenv'
 						sh 'python3 -m pipenv install Pipfile'
-						sh 'python3 -m pipenv run python3 djangotaurus/manage.py collectstatic --noinput'
+						sh 'python3 -m pipenv run python3 flask run'
                         echo "Build has no errors! Proceeding on!"
                     } catch (Exception e) {
                         echo "Build has errors! Please check and verify!"
