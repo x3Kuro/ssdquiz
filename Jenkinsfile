@@ -23,7 +23,20 @@ pipeline {
                     }
                 }
             }
-		}
+	}
+	stage('SonarQube Analysis') {
+            steps {
+                script {
+                    echo '-------- Performing SonarQube Scan --------'
+                    def scannerHome = tool 'ict3x03_SonarQube_Scanner';
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                       echo "SonarQube Analysis has no errors! Proceeding on!"
+                }
+            }
+        }
+
 		// TAKE NOTE:
 		// RUN THIS ONLY IN THE EVENT OF DOCKER SERVICE RESTART AS GOOGLE CHROME IS IN THE CONTAINER ALREADY. JUST NEED TO RUN ONCE!
 
@@ -54,18 +67,6 @@ pipeline {
                 echo '-------- Performing Headless Browser Test Stage --------'
                 sh 'python3 -m pipenv run python3 ssdquiz/app.py test ssdquiz.tests.test_login'
                 echo "Headless Browser Testing has no errors! Proceeding on!"
-            }
-        }
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    echo '-------- Performing SonarQube Scan --------'
-                    def scannerHome = tool 'ict3x03_SonarQube_Scanner';
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                       echo "SonarQube Analysis has no errors! Proceeding on!"
-                }
             }
         }
     }
