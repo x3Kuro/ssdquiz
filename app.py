@@ -8,7 +8,14 @@ def home():
 
 @app.route('/search', methods=['POST'])
 def search():
-	p = 
+	data = request.form('search')
+	p = '[^!@#$%^&\*\(\)\'\"\:]*'
+	if re.match(p, data):
+		return render_template('result.html', result=data)
+		
+	else:
+		return redirect(url_for('home'))
+	
 	
 if __name__ == '__main__':
 	app.run()
